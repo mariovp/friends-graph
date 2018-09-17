@@ -4,8 +4,10 @@ public class FriendsTree {
 
     public void fillTree() {
 
-        // Level 1
+        //Level 0 (root)
         var person1 = new Person("1");
+
+        // Level 1
         var person2 = new Person("2", person1);
         var person3 = new Person("3", person1);
 
