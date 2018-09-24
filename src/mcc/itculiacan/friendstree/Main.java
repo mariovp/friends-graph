@@ -1,13 +1,25 @@
 package mcc.itculiacan.friendstree;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
-	    // write your code here
 
-        FriendsTree friendsTree = new FriendsTree();
+        FriendsGraph friendsGraph = new FriendsGraph();
 
-        friendsTree.fillTree();
+        Scanner sc = new Scanner(System.in);
+
+        while(true) {
+            System.out.println("Escriba una instrucción: ");
+            String command = sc.nextLine();
+
+            if (command.equals("exit")) {
+                break;
+            }
+
+            friendsGraph.processCommand(command);
+        }
 
     }
 }
