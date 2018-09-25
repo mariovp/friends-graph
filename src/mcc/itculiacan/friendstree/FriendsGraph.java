@@ -3,7 +3,6 @@ package mcc.itculiacan.friendstree;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class FriendsGraph {
 
@@ -48,6 +47,7 @@ public class FriendsGraph {
             Person friend = getOrCreatePerson(friendName);
 
             person.addFriend(friend);
+            //friend.addFriend(person);
 
             System.out.println(person);
 
@@ -89,18 +89,6 @@ public class FriendsGraph {
             Person person = getOrCreatePerson(personName);
 
             printNthLevelFriends(person, n);
-        }
-
-    }
-
-    private void addFriend(Person person, Person friend) {
-        person.addFriend(friend);
-    }
-
-    private void addFriends(Person person, Person... friends) {
-
-        for (Person friend : friends) {
-            person.addFriend(friend);
         }
 
     }
