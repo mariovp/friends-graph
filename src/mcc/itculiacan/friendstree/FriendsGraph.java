@@ -14,8 +14,52 @@ public class FriendsGraph {
 
     public void processCommand(String command) {
 
+        if (command.matches(singleRelationRegex)) {
 
+            String[] splitCommand = command.split("-");
 
+            String personName = splitCommand[0];
+            String friendName = splitCommand[1];
+
+            Person person = getOrCreatePerson(personName);
+            Person friend = getOrCreatePerson(friendName);
+
+            person.addFriend(friend);
+
+            System.out.println(person);
+        }
+
+    }
+
+    private void addFriend(Person person, Person friend) {
+        person.addFriend(friend);
+    }
+
+    private void addFriends(Person person, Person... friends) {
+
+        for (Person friend : friends) {
+            person.addFriend(friend);
+        }
+
+    }
+
+    private void getNthLevelFriends(Person person, int n) {
+
+        person.getNthLevelFriends(n);
+    }
+
+    private Person getOrCreatePerson(String personName) {
+
+        Person person;
+
+        if (personHashMap.containsKey(personName)) {
+            person = personHashMap.get(personName);
+        } else {
+            person = new Person(personName);
+            personHashMap.put(personName, person);
+        }
+
+        return person;
     }
 
 }

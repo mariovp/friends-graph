@@ -1,25 +1,22 @@
 package mcc.itculiacan.friendstree;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Person {
+public class Person implements Iterable {
 
     private String name;
-    private List<Person> friendList = new ArrayList<>();
-    private Person parentFriend;
+    private Set<Person> friendList = new HashSet<>();
 
     public Person(String name) {
         this.name = name;
     }
 
-    public Person(String name, Person parentFriend) {
-        this(name);
-        this.parentFriend = parentFriend;
-        parentFriend.addDirectFriend(this);
+    public void addFriend(Person person) {
+        friendList.add(person);
+        person.addReciprocalFriend(this);
     }
 
-    public void addDirectFriend(Person person) {
+    private void addReciprocalFriend(Person person) {
         friendList.add(person);
     }
 
@@ -38,6 +35,25 @@ public class Person {
 
     @Override
     public String toString() {
-        return name;
+        return name+"\n"+friendList.size();
     }
+
+    @Override
+    public Iterator<Person> iterator() {
+        return friendList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
 }
