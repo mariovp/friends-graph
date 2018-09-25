@@ -47,7 +47,7 @@ public class FriendsGraph {
             Person friend = getOrCreatePerson(friendName);
 
             person.addFriend(friend);
-            //friend.addFriend(person);
+            friend.addFriend(person);
 
             System.out.println(person);
 
@@ -65,6 +65,7 @@ public class FriendsGraph {
             for (String friendName : splitFriendNames) {
                 Person friend = getOrCreatePerson(friendName);
                 person.addFriend(friend);
+                friend.addFriend(person);
             }
 
             System.out.println(person);

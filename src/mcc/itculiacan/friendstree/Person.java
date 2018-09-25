@@ -17,11 +17,6 @@ public class Person implements Iterable {
 
     public void addFriend(Person person) {
         friendList.add(person);
-        person.addReciprocalFriend(this);
-    }
-
-    private void addReciprocalFriend(Person person) {
-        friendList.add(person);
     }
 
     public List<Person> getNthLevelFriends(int n) {
