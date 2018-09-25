@@ -26,13 +26,14 @@ public class Person implements Iterable {
 
     public List<Person> getNthLevelFriends(int n) {
 
-        HashMap<Person, Integer> nLevelFriendList = new HashMap<>();
+        // <Persona, n máximo en que se encontró>
+        HashMap<Person, Integer> hashMap = new HashMap<>();
 
-        HashMap<Person, Integer> frecuencyMap = getNthLevelFriends(n, nLevelFriendList);
+        HashMap<Person, Integer> visitedFriends = getNthLevelFriends(n, hashMap);
 
         List<Person> friendsOfLevelN = new ArrayList<>();
 
-        frecuencyMap.forEach((person, integer) -> {
+        visitedFriends.forEach((person, integer) -> {
             if (integer == 1)
                 friendsOfLevelN.add(person);
         });
@@ -40,33 +41,33 @@ public class Person implements Iterable {
         return friendsOfLevelN;
     }
 
-    public HashMap<Person, Integer> getNthLevelFriends(int n, HashMap<Person, Integer> nLevelFriendList) {
+    private HashMap<Person, Integer> getNthLevelFriends(int n, HashMap<Person, Integer> visitedFriends) {
 
         if (n > 1) {
             for (Person friend : friendList) {
-                updateHashMap(nLevelFriendList, friend, n);
-                friend.getNthLevelFriends(n - 1, nLevelFriendList);
+                updateHashMap(visitedFriends, friend, n);
+                friend.getNthLevelFriends(n - 1, visitedFriends);
             }
 
         } else {
             for (Person friend : friendList) {
-                updateHashMap(nLevelFriendList, friend, n);
+                updateHashMap(visitedFriends, friend, n);
             }
         }
 
-        return nLevelFriendList;
+        return visitedFriends;
     }
 
-    private void updateHashMap(HashMap<Person, Integer> nLevelFriendList, Person friend, int n) {
+    private void updateHashMap(HashMap<Person, Integer> visitedFriends, Person friend, int n) {
 
-        if (nLevelFriendList.containsKey(friend)) {
-            int countInMap = nLevelFriendList.get(friend);
+        if (visitedFriends.containsKey(friend)) {
+            int countInMap = visitedFriends.get(friend);
             int updatedCount = Math.max(countInMap, n);
 
-            nLevelFriendList.put(friend, updatedCount);
+            visitedFriends.put(friend, updatedCount);
         } else {
 
-            nLevelFriendList.put(friend, n);
+            visitedFriends.put(friend, n);
         }
 
     }
