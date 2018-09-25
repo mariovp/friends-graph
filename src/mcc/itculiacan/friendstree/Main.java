@@ -8,10 +8,12 @@ public class Main {
 
         FriendsGraph friendsGraph = new FriendsGraph();
 
+        friendsGraph.initGraph();
+
         Scanner sc = new Scanner(System.in);
 
         while(true) {
-            System.out.println("Escriba una instrucción: ");
+            System.out.println("\nEscriba una instrucción: ");
             String command = sc.nextLine();
 
             if (command.equals("exit")) {
