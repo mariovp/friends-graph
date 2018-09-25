@@ -35,7 +35,19 @@ public class Person implements Iterable {
 
     @Override
     public String toString() {
-        return name+"\n"+friendList.size();
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(name).append(" Amigos = [");
+
+        for (Person person : friendList) {
+            stringBuilder.append(person.name).append(", ");
+        }
+        stringBuilder.delete(stringBuilder.length()-2, stringBuilder.length());
+
+        stringBuilder.append("]");
+
+        return stringBuilder.toString();
     }
 
     @Override

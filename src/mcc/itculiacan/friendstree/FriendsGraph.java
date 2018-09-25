@@ -27,6 +27,24 @@ public class FriendsGraph {
             person.addFriend(friend);
 
             System.out.println(person);
+
+        } else if(command.matches(multipleRelationRegex)) {
+
+            String[] splitCommand = command.split("-");
+
+            String personName = splitCommand[0];
+            String friendNames = splitCommand[1];
+
+            String[] splitFriendNames = friendNames.split(",");
+
+            Person person = getOrCreatePerson(personName);
+
+            for (String friendName : splitFriendNames) {
+                Person friend = getOrCreatePerson(friendName);
+                person.addFriend(friend);
+            }
+
+            System.out.println(person);
         }
 
     }
