@@ -11,6 +11,10 @@ public class Person implements Iterable {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addFriend(Person person) {
         friendList.add(person);
         person.addReciprocalFriend(this);
@@ -22,15 +26,49 @@ public class Person implements Iterable {
 
     public List<Person> getNthLevelFriends(int n) {
 
-        List<Person> nLevelFriendList = new ArrayList<>();
+        HashMap<Person, Integer> nLevelFriendList = new HashMap<>();
 
-        if (n > 1)
-            for (Person friend : friendList)
-                nLevelFriendList.addAll(friend.getNthLevelFriends(n - 1));
-        else
-            nLevelFriendList.addAll(friendList);
+        HashMap<Person, Integer> frecuencyMap = getNthLevelFriends(n, nLevelFriendList);
+
+        List<Person> friendsOfLevelN = new ArrayList<>();
+
+        frecuencyMap.forEach((person, integer) -> {
+            if (integer == 1)
+                friendsOfLevelN.add(person);
+        });
+
+        return friendsOfLevelN;
+    }
+
+    public HashMap<Person, Integer> getNthLevelFriends(int n, HashMap<Person, Integer> nLevelFriendList) {
+
+        if (n > 1) {
+            for (Person friend : friendList) {
+                updateHashMap(nLevelFriendList, friend, n);
+                friend.getNthLevelFriends(n - 1, nLevelFriendList);
+            }
+
+        } else {
+            for (Person friend : friendList) {
+                updateHashMap(nLevelFriendList, friend, n);
+            }
+        }
 
         return nLevelFriendList;
+    }
+
+    private void updateHashMap(HashMap<Person, Integer> nLevelFriendList, Person friend, int n) {
+
+        if (nLevelFriendList.containsKey(friend)) {
+            int countInMap = nLevelFriendList.get(friend);
+            int updatedCount = Math.max(countInMap, n);
+
+            nLevelFriendList.put(friend, updatedCount);
+        } else {
+
+            nLevelFriendList.put(friend, n);
+        }
+
     }
 
     @Override
@@ -38,7 +76,7 @@ public class Person implements Iterable {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(name).append(" Amigos = [");
+        stringBuilder.append(name).append("\t[");
 
         for (Person person : friendList) {
             stringBuilder.append(person.name).append(", ");

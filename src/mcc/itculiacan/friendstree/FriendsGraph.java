@@ -106,7 +106,7 @@ public class FriendsGraph {
     }
 
     private void printNthLevelFriends(Person person, int n) {
-        Set<Person> levelFriends = person.getNthLevelFriends(n);
+        List<Person> levelFriends = person.getNthLevelFriends(n);
 
         System.out.println("Amigos de nivel "+n+" de "+person.getName()+":");
 
